@@ -1,0 +1,18 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}{{ project.title }} - My Portfolio{% endblock %}
+
+{% block content %}
+<div class="project">
+    <h3>{{ project.title }}</h3>
+    <p>
+        <h4>Description:</h4>
+        {{ project.description }} <br>
+        <h2>Technologies used:</h2> {{ project.technologies }}
+    </p>
+    <p>
+        <h2>Project Completion:</h2> {{ project.completion_date }}
+    </p>
+ 
+</div>
+{% endblock %}

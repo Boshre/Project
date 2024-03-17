@@ -1,0 +1,46 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Contact Me - My Portfolio{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .contact-form {
+        width: 70%;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f2f2f2;
+        border-radius: 8px;
+    }
+    .form-field {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+    .form-button {
+        width: 100%;
+        padding: 10px;
+        background-color: #336699;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .form-button:hover {
+        background-color: #285280;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Contact Me</h1>
+<div class="contact-form">
+    <form action="/send_message" method="post">
+        <input type="text" name="name" placeholder="Your Name" class="form-field">
+        <input type="email" name="email" placeholder="Your Email" class="form-field">
+        <textarea name="message" placeholder="Your Message" class="form-field" rows="6"></textarea>
+        <button type="submit" class="form-button">Send Message</button>
+    </form>
+</div>
+{% endblock content %}

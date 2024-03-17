@@ -23,3 +23,6 @@ def project(request, project_id):
     # Pass the target project to the template
     context = {'project': targetProject}
     return render(request, 'portfoliomodule/project.html', context)
+
+def contactMe(request):
+     return render(request, 'portfoliomodule/contactMe.html')

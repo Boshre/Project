@@ -4,6 +4,7 @@
         background-color: #f8f9fa;
         padding: 10px 0;
     }
+
     nav ul {
         list-style: none;
         padding: 0;
@@ -11,14 +12,17 @@
         display: flex;
         justify-content: center;
     }
+
     nav li {
         margin: 0 15px;
     }
+
     nav a {
         text-decoration: none;
         color: #333;
         font-weight: bold;
     }
+
     nav a:hover {
         color: #007bff;
     }
@@ -30,8 +34,8 @@
         <!-- Navigation Bar -->
         <ul>
             <li><a href="">Home</a></li>
-            <li><a href={%url 'projects'%}>Projects</a></li>
-            <li><a href="">Contact</a></li>
+            <li><a href={% url 'projects' %}>Projects</a></li>
+            <li><a href={% url 'contactMe' %}>Contact</a></li>
         </ul>
     </nav>
 </header>

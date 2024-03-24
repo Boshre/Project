@@ -2,34 +2,11 @@
 
 {% block title %}Home - My Portfolio{% endblock %}
 
-{% block stylesheets %}
-<style>
-    .profile-image {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        display: block;
-        margin: 20px auto;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-    th, td {
-        border: 1px solid black;
-        padding: 8px;
-        text-align: left;
-    }
-    th {
-        background-color: #f2f2f2;
-    }
-</style>
-{% endblock %}
+{%load static%}
 
 {% block content %}
 <h1>Welcome to My Portfolio</h1>
-<img src="https://th.bing.com/th/id/R.3d828f482676e4315ae63b042eb93085?rik=TqR%2fTRYyWQxgyQ&pid=ImgRaw&r=0" alt="Bushra" class="profile-image">
+<img src="{%static 'images/person.png'%}" alt="Bushra" class="profile-image">
 <p>Hello! I'm <strong>Bushra</strong>, this is my portfolio website.</p>
 
 <h2>My Skills</h2>

@@ -1,37 +1,37 @@
 {% extends "layouts/base.html" %}
 
-{% block title %}Projects - My Portfolio{% endblock %}
-
 {% block content %}
-<h1>My Projects</h1>
+<h1>My Portfolio Projects</h1>
+<form method="post" action="{% url 'filter_projects' %}" class="filter-form">
+    {% csrf_token %}  
+    <div class="form-group">
+        <input type="text" name="title_search" placeholder="Search by title..." >
+    </div>
 
-<div class="project">
-    <h3>Project 1: Interactive Web Application</h3>
-    <p>
-        <h3>Description:</h3> A dynamic web application that allows users to interact in real-time.
-        Technologies used include Django, JavaScript, and WebSocket.
-    </p>
-    <a href="/project/1">Read More</a>
+    <div class="form-group">
+        <label><input type="checkbox" name="tech" value="Django" > Django</label>
+        <label><input type="checkbox" name="tech" value="JavaScript" > JavaScript</label>
+        <label><input type="checkbox" name="tech" value="Python" > Python</label>
+        <label><input type="checkbox" name="tech" value="WebSocket" > WebSocket</label>
+        <label><input type="checkbox" name="tech" value="Flutter" > Flutter</label>
+        <label><input type="checkbox" name="tech" value="React" > React</label>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Search">
+    </div>
+</form>
+<div class="projects-list">
+    {% for project in projects %}
+    <div class="project">
+        <h2>{{ project.title }}</h2>
+        <p>{{ project.description }}</p>
+        <p>Technologies Used: {{ project.technologies }}</p>
+        <a href="{{ project.link }}">View Project</a>
+    </div>
+    {% empty %}
+    <p>No projects available.</p>
+    {% endfor %}
 </div>
-
-<div class="project">
-    <h3>Project 2: Machine Learning Analysis</h3>
-    <p>
-        <h3>Description:</h3> This project involves a machine learning algorithm for data analysis and prediction.
-        Utilizes Python's Scikit-Learn and Pandas libraries.
-    </p>
-    <a href="/project/2">Read More</a>
-</div>
-
-<div class="project">
-    <h3>Project 3: Mobile App Development</h3>
-    <p>
-        <h3>Description:</h3> Developed a cross-platform mobile application using Flutter. Focuses on providing
-        a seamless user experience across Android and iOS.
-    </p>
-    <a href="/project/3">Read More</a>
-</div>
-
-<!-- You can continue adding more projects in the same pattern -->
 
 {% endblock content %}

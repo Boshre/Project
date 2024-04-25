@@ -1,5 +1,9 @@
 from django.shortcuts import render,redirect
 from django.views.decorators.csrf import csrf_exempt
+from django.db.models import Q
+from functools import reduce
+
+
 from .models import Project
 
 # Create your views here.
@@ -22,6 +26,7 @@ def project(request, project_id):
 def contactMe(request):
      return render(request, 'portfoliomodule/contactMe.html')
 
+
 @csrf_exempt
 def filter_projects(request):
     projects = Project.objects.all()
@@ -30,16 +35,18 @@ def filter_projects(request):
         title_search = request.POST.get('title_search', '')
         tech_search = request.POST.getlist('tech')
 
+        queries = []  # List to store individual Q objects
+
         if title_search:
-            projects = projects.filter(title__icontains=title_search)
+            queries.append(Q(title__icontains=title_search))
 
         if tech_search:
-            query = None
-            for tech in tech_search:
-                if query is None:
-                    query = projects.filter(technologies__icontains=tech)
-                else:
-                    query = query | projects.filter(technologies__icontains=tech)
-            projects = query
+            tech_queries = [Q(technologies__icontains=tech) for tech in tech_search]
+            queries.append(Q(reduce(lambda x, y: x | y, tech_queries)))
+
+        if queries:
+            query = reduce(lambda x, y: x & y, queries)
+            projects = projects.filter(query)
 
     return render(request, 'portfoliomodule/projectslist.html', {'projects': projects})
+

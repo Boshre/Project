@@ -6,5 +6,7 @@ urlpatterns = [
     path('contact/',views.contactMe,name="contactMe"),
     path('project/<int:project_id>/', views.project, name='project'),
     path('filter_projects', views.filter_projects, name='filter_projects'),
+        path('add_project/', views.add_project, name='add_project'),
+
 
  ]

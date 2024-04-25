@@ -50,3 +50,14 @@ def filter_projects(request):
 
     return render(request, 'portfoliomodule/projectslist.html', {'projects': projects})
 
+@csrf_exempt
+def add_project(request):
+    if request.method == 'POST':
+        Project.objects.create(
+            title=request.POST['title'],
+            description=request.POST['description'],
+            technologies=request.POST['technologies'],
+            link=request.POST.get('link', '')  
+        )
+        return redirect('projects')
+    return render(request, 'portfoliomodule/add_project.html')

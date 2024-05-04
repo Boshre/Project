@@ -50,14 +50,30 @@ def filter_projects(request):
 
     return render(request, 'portfoliomodule/projectslist.html', {'projects': projects})
 
+from .forms import ProjectForm
+
 @csrf_exempt
 def add_project(request):
+    projects = Project.objects.all()
     if request.method == 'POST':
-        Project.objects.create(
-            title=request.POST['title'],
-            description=request.POST['description'],
-            technologies=request.POST['technologies'],
-            link=request.POST.get('link', '')  
-        )
-        return redirect('projects')
-    return render(request, 'portfoliomodule/add_project.html')
+        form = ProjectForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, 'portfoliomodule/projectslist.html', {'projects': projects})
+    else:
+        form = ProjectForm()
+    return render(request, 'portfoliomodule/add_project.html', {'form': form})
+    
+
+@csrf_exempt
+def update_project(request, project_id):
+    projects = Project.objects.all()
+    project = Project.objects.get(id=project_id)
+    if request.method == 'POST':
+        form = ProjectForm(request.POST, instance=project)
+        if form.is_valid():
+            form.save()
+            return render(request, 'portfoliomodule/projectslist.html', {'projects': projects})
+    else:
+        form = ProjectForm(instance=project)
+    return render(request, 'portfoliomodule/update_project.html', {'form': form})

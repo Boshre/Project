@@ -77,3 +77,9 @@ def update_project(request, project_id):
     else:
         form = ProjectForm(instance=project)
     return render(request, 'portfoliomodule/update_project.html', {'form': form})
+
+def delete_project(request, project_id):
+    projects = Project.objects.all()
+    project = Project.objects.get(id=project_id)
+    project.delete()
+    return render(request, 'portfoliomodule/projectslist.html', {'projects': projects})
